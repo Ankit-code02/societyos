@@ -1,0 +1,13 @@
+.society-grid {
+  background-image:
+    linear-gradient(rgba(19, 78, 65, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 78, 65, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+.society-dots {
+  background-image: radial-gradient(rgba(19, 78, 65, 0.12) 1.2px, transparent 1.2px);
+  background-size: 18px 18px;
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
