@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { useSocietyId } from '../../hooks/useSocietyId'
+import { useAuth } from '../auth/AuthProvider'
 
 interface SidebarProps {
   open: boolean
@@ -30,6 +31,7 @@ const navigation = [
 
 export function Sidebar({ open, onClose }: SidebarProps) {
   const societyId = useSocietyId()
+  const { user } = useAuth()
 
   const withSocietyId = (path: string) => {
     if (!societyId) {
@@ -149,18 +151,20 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold text-[var(--color-ink-950)]">
-                  Your Society
+                  {user?.societyName ?? 'Your Society'}
                 </p>
 
                 <p className="text-xs text-[var(--color-ink-500)]">
-                  Building A
+                  {user?.unitId ? `Unit ${user.unitId}` : 'Society member'}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2 text-xs text-[var(--color-ink-500)]">
               <Users className="h-3.5 w-3.5" />
-              <span>Resident</span>
+              <span>
+                {user?.role === 'SOCIETY_ADMIN' ? 'Society Admin' : 'Resident'}
+              </span>
             </div>
           </div>
         </div>

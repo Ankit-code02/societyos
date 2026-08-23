@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../auth/AuthProvider'
 import {
   Bell,
   Menu,
@@ -16,6 +17,7 @@ interface TopBarProps {
 export function TopBar({
   onMenuClick,
 }: TopBarProps) {
+    const { user } = useAuth()
   const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
@@ -97,7 +99,7 @@ export function TopBar({
           className="flex items-center gap-3 rounded-xl p-1.5 pr-2 transition-colors hover:bg-white"
         >
           <Avatar
-            name="Ankit Maurya"
+            name={`${user?.firstName ?? ''} ${user?.lastName ?? ''}`.trim()}
             size="sm"
           />
 
