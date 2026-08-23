@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: societyos
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/societyos}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  frontend-url: ${APP_FRONTEND_URL:http://localhost:5173}
+
+  jwt:
+    secret: ${JWT_SECRET:development-only-change-this-secret-to-a-long-random-value}
+    access-token-expiration-minutes: 15
+    refresh-token-expiration-days: 30
+
+ai:
+  gemini:
+    api-key: ${GEMINI_API_KEY:}
+    model: gemini-3.6-flash
