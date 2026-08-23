@@ -306,10 +306,11 @@ public class ResidentService {
 
         boolean isAdmin =
                 societyMemberRepository
-                        .existsBySocietyIdAndUserIdAndRole(
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
                                 societyId,
                                 adminUserId,
-                                SocietyMemberRole.SOCIETY_ADMIN
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
                         );
 
         if (!isAdmin) {
