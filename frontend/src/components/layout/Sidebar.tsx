@@ -12,6 +12,7 @@ import {
   X,
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
+import { useSocietyId } from '../../hooks/useSocietyId'
 
 interface SidebarProps {
   open: boolean
@@ -24,10 +25,20 @@ const navigation = [
   { label: 'Community', path: '/app/community', icon: Bell },
   { label: 'Meetings', path: '/app/meetings', icon: CalendarDays },
   { label: 'Payments', path: '/app/payments', icon: CircleDollarSign },
-  { label: 'AI Help', path: '/app/ai', icon: Bot },
+  { label: 'AI Help', path: '/app/ai-help', icon: Bot },
 ]
 
 export function Sidebar({ open, onClose }: SidebarProps) {
+  const societyId = useSocietyId()
+
+  const withSocietyId = (path: string) => {
+    if (!societyId) {
+      return path
+    }
+
+    return `${path}?societyId=${encodeURIComponent(societyId)}`
+  }
+
   return (
     <>
       {open && (
@@ -51,7 +62,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Brand */}
         <div className="flex h-20 items-center justify-between px-6">
           <NavLink
-            to="/app/dashboard"
+            to={withSocietyId('/app/dashboard')}
             onClick={onClose}
             className="flex items-center gap-3"
           >
@@ -93,7 +104,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               return (
                 <NavLink
                   key={item.path}
-                  to={item.path}
+                  to={withSocietyId(item.path)}
                   onClick={onClose}
                   className={({ isActive }) =>
                     [
@@ -157,7 +168,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         {/* Settings */}
         <div className="mt-auto border-t border-[var(--color-border)] p-4">
           <NavLink
-            to="/app/settings"
+            to={withSocietyId('/app/settings')}
             onClick={onClose}
             className={({ isActive }) =>
               [
