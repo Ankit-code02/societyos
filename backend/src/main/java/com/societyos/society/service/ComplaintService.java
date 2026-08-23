@@ -33,7 +33,7 @@ public class ComplaintService {
             UUID userId,
             CreateComplaintRequest request
     ) {
-
+        requireActiveSocietyMember(societyId, userId);
         Society society = societyRepository.findById(societyId)
                 .orElseThrow(() ->
                         new IllegalArgumentException(
@@ -107,9 +107,10 @@ public class ComplaintService {
     }
     @Transactional
     public java.util.List<ComplaintResponse> getSocietyComplaints(
-            UUID societyId
+            UUID societyId,
+            UUID userId
     ) {
-
+        requireSocietyAdmin(societyId, userId);
         return complaintRepository
                 .findBySocietyIdOrderByCreatedAtDesc(societyId)
                 .stream()
@@ -154,6 +155,26 @@ public class ComplaintService {
                 .updatedAt(complaint.getUpdatedAt())
                 .resolvedAt(complaint.getResolvedAt())
                 .build();
+    }
+    private void requireActiveSocietyMember(
+            UUID societyId,
+            UUID userId
+    ) {
+
+        SocietyMember member =
+                societyMemberRepository
+                        .findBySocietyIdAndUserId(societyId, userId)
+                        .orElseThrow(() ->
+                                new org.springframework.security.access.AccessDeniedException(
+                                        "Active society membership required"
+                                )
+                        );
+
+        if (member.getStatus() != SocietyMemberStatus.ACTIVE) {
+            throw new org.springframework.security.access.AccessDeniedException(
+                    "Active society membership required"
+            );
+        }
     }
     private void requireSocietyAdmin(
             UUID societyId,

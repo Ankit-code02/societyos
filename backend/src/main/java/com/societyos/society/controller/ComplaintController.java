@@ -69,7 +69,8 @@ public class ComplaintController {
 
         return ResponseEntity.ok(
                 complaintService.getSocietyComplaints(
-                        societyId
+                        societyId,
+                        user.getId()
                 )
         );
     }
