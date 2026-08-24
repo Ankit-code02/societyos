@@ -47,8 +47,12 @@ public class MaintenanceDueController {
             Authentication authentication
     ) {
 
+        User authenticatedUser =
+                (User) authentication.getPrincipal();
+
         return maintenanceDueService.getSocietyDues(
-                societyId
+                societyId,
+                authenticatedUser.getId()
         );
     }
 
@@ -59,9 +63,13 @@ public class MaintenanceDueController {
             Authentication authentication
     ) {
 
+        User authenticatedUser =
+                (User) authentication.getPrincipal();
+
         return maintenanceDueService.getUnitDues(
                 societyId,
-                unitId
+                unitId,
+                authenticatedUser.getId()
         );
     }
     @PostMapping("/{societyId}/maintenance-dues/{dueId}/demo-pay")

@@ -18,7 +18,6 @@ import com.societyos.society.entity.SocietyMemberRole;
 import com.societyos.society.entity.SocietyMemberStatus;
 import com.societyos.society.repository.SocietyMemberRepository;
 import com.societyos.society.dto.DemoPaymentResponse;
-import com.societyos.user.entity.User;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -78,8 +77,12 @@ public class MaintenanceDueService {
 
     @Transactional(readOnly = true)
     public List<MaintenanceDueResponse> getSocietyDues(
-            UUID societyId
+            UUID societyId,
+            UUID userId
     ) {
+
+        verifySocietyAdmin(societyId, userId);
+
         return maintenanceDueRepository
                 .findBySocietyIdOrderByDueDateAsc(societyId)
                 .stream()
@@ -90,8 +93,10 @@ public class MaintenanceDueService {
     @Transactional(readOnly = true)
     public List<MaintenanceDueResponse> getUnitDues(
             UUID societyId,
-            UUID unitId
+            UUID unitId,
+            UUID userId
     ) {
+
         Unit unit = unitRepository.findById(unitId)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Unit not found"
@@ -101,6 +106,33 @@ public class MaintenanceDueService {
             throw new IllegalArgumentException(
                     "Unit does not belong to this society"
             );
+        }
+
+        boolean isSocietyAdmin =
+                societyMemberRepository
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
+                                userId,
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
+                        );
+
+        if (!isSocietyAdmin) {
+
+            var member =
+                    societyMemberRepository
+                            .findBySocietyIdAndUserId(societyId, userId)
+                            .orElseThrow(() -> new IllegalArgumentException(
+                                    "User is not a member of this society"
+                            ));
+
+            if (member.getUnit() == null ||
+                    !member.getUnit().getId().equals(unitId)) {
+
+                throw new IllegalArgumentException(
+                        "User cannot access maintenance dues for this unit"
+                );
+            }
         }
 
         return maintenanceDueRepository
