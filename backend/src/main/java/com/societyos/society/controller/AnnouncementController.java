@@ -67,11 +67,16 @@ public class AnnouncementController {
 
     @GetMapping("/{societyId}/announcements/published")
     public List<AnnouncementResponse> getPublishedAnnouncements(
-            @PathVariable UUID societyId
+            @PathVariable UUID societyId,
+            Authentication authentication
     ) {
 
+        User user =
+                (User) authentication.getPrincipal();
+
         return announcementService.getPublishedAnnouncements(
-                societyId
+                societyId,
+                user.getId()
         );
     }
 }

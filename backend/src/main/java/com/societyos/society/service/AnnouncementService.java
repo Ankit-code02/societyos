@@ -117,8 +117,14 @@ public class AnnouncementService {
 
     @Transactional(readOnly = true)
     public List<AnnouncementResponse> getPublishedAnnouncements(
-            UUID societyId
+            UUID societyId,
+            UUID userId
     ) {
+
+        requireActiveSocietyMember(
+                societyId,
+                userId
+        );
 
         return announcementRepository
                 .findBySocietyIdAndStatusOrderByCreatedAtDesc(
@@ -128,6 +134,29 @@ public class AnnouncementService {
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+    private void requireActiveSocietyMember(
+            UUID societyId,
+            UUID userId
+    ) {
+
+        var member =
+                societyMemberRepository
+                        .findBySocietyIdAndUserId(
+                                societyId,
+                                userId
+                        )
+                        .orElseThrow(() ->
+                                new AccessDeniedException(
+                                        "Society membership required"
+                                )
+                        );
+
+        if (member.getStatus() != SocietyMemberStatus.ACTIVE) {
+            throw new AccessDeniedException(
+                    "Active society membership required"
+            );
+        }
     }
 
     private void requireSocietyAdmin(
