@@ -10,6 +10,7 @@ import com.societyos.society.repository.UnitRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.societyos.society.entity.SocietyMemberStatus;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class UnitService {
 
     @Transactional
     public Unit createUnit(
+            UUID societyId,
             UUID buildingId,
             UUID userId,
             String unitNumber,
@@ -37,6 +39,12 @@ public class UnitService {
                         new IllegalArgumentException("Building not found")
                 );
 
+        if (!building.getSociety().getId().equals(societyId)) {
+            throw new IllegalArgumentException(
+                    "Building does not belong to this society"
+            );
+        }
+
         if (building.getSociety().getStatus() != SocietyStatus.VERIFIED) {
             throw new IllegalStateException(
                     "Units can only be created for a verified society"
@@ -45,15 +53,16 @@ public class UnitService {
 
         boolean isSocietyAdmin =
                 societyMemberRepository
-                        .existsBySocietyIdAndUserIdAndRole(
-                                building.getSociety().getId(),
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
                                 userId,
-                                SocietyMemberRole.SOCIETY_ADMIN
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
                         );
 
         if (!isSocietyAdmin) {
             throw new IllegalStateException(
-                    "Only society administrators can manage units"
+                    "Only active society administrators can manage units"
             );
         }
 
@@ -107,7 +116,8 @@ public class UnitService {
     @Transactional(readOnly = true)
     public List<Unit> getUnits(
             UUID societyId,
-            UUID buildingId
+            UUID buildingId,
+            UUID userId
     ) {
 
         Building building = buildingRepository.findById(buildingId)
@@ -121,6 +131,21 @@ public class UnitService {
             );
         }
 
+        boolean isSocietyAdmin =
+                societyMemberRepository
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
+                                userId,
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
+                        );
+
+        if (!isSocietyAdmin) {
+            throw new IllegalStateException(
+                    "Only active society administrators can manage units"
+            );
+        }
+
         return unitRepository
                 .findAllByBuildingIdOrderByFloorNumberAscUnitNumberAsc(
                         buildingId
@@ -131,7 +156,8 @@ public class UnitService {
     public Unit getUnit(
             UUID societyId,
             UUID buildingId,
-            UUID unitId
+            UUID unitId,
+            UUID userId
     ) {
 
         Building building = buildingRepository.findById(buildingId)
@@ -142,6 +168,21 @@ public class UnitService {
         if (!building.getSociety().getId().equals(societyId)) {
             throw new IllegalArgumentException(
                     "Building does not belong to this society"
+            );
+        }
+
+        boolean isSocietyAdmin =
+                societyMemberRepository
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
+                                userId,
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
+                        );
+
+        if (!isSocietyAdmin) {
+            throw new IllegalStateException(
+                    "Only active society administrators can manage units"
             );
         }
 

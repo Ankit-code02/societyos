@@ -37,6 +37,7 @@ public class UnitController {
 
         Unit unit =
                 unitService.createUnit(
+                        societyId,
                         buildingId,
                         user.getId(),
                         request.getUnitNumber(),
@@ -55,13 +56,18 @@ public class UnitController {
     )
     public ResponseEntity<List<UnitResponse>> getUnits(
             @PathVariable UUID societyId,
-            @PathVariable UUID buildingId
+            @PathVariable UUID buildingId,
+            Authentication authentication
     ) {
+
+        User user =
+                (User) authentication.getPrincipal();
 
         List<UnitResponse> response =
                 unitService.getUnits(
                                 societyId,
-                                buildingId
+                                buildingId,
+                                user.getId()
                         )
                         .stream()
                         .map(UnitResponse::new)
@@ -76,14 +82,19 @@ public class UnitController {
     public ResponseEntity<UnitResponse> getUnit(
             @PathVariable UUID societyId,
             @PathVariable UUID buildingId,
-            @PathVariable UUID unitId
+            @PathVariable UUID unitId,
+            Authentication authentication
     ) {
+
+        User user =
+                (User) authentication.getPrincipal();
 
         Unit unit =
                 unitService.getUnit(
                         societyId,
                         buildingId,
-                        unitId
+                        unitId,
+                        user.getId()
                 );
 
         return ResponseEntity.ok(
