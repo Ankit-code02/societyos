@@ -38,6 +38,9 @@ management:
     web:
       exposure:
         include: health,info
+  health:
+    mail:
+      enabled: false
 
 app:
   frontend-url: ${APP_FRONTEND_URL:http://localhost:5173}
