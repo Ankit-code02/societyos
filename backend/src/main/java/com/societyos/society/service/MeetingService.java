@@ -37,6 +37,7 @@ public class MeetingService {
             UUID userId,
             CreateMeetingRequest request
     ) {
+
         requireSocietyAdmin(societyId, userId);
         Society society = societyRepository.findById(societyId)
                 .orElseThrow(() -> new IllegalArgumentException(
@@ -81,7 +82,15 @@ public class MeetingService {
     }
 
     @Transactional(readOnly = true)
-    public List<MeetingResponse> getSocietyMeetings(UUID societyId) {
+    public List<MeetingResponse> getSocietyMeetings(
+            UUID societyId,
+            UUID userId
+    ) {
+
+        requireActiveSocietyMember(
+                societyId,
+                userId
+        );
 
         return meetingRepository
                 .findBySocietyIdOrderByScheduledAtDesc(societyId)
@@ -91,7 +100,15 @@ public class MeetingService {
     }
 
     @Transactional(readOnly = true)
-    public List<MeetingResponse> getUpcomingMeetings(UUID societyId) {
+    public List<MeetingResponse> getUpcomingMeetings(
+            UUID societyId,
+            UUID userId
+    ) {
+
+        requireActiveSocietyMember(
+                societyId,
+                userId
+        );
 
         return meetingRepository
                 .findBySocietyIdAndStatusOrderByScheduledAtAsc(
@@ -142,6 +159,29 @@ public class MeetingService {
                 });
 
         return toResponse(savedMeeting);
+    }
+    private void requireActiveSocietyMember(
+            UUID societyId,
+            UUID userId
+    ) {
+
+        var member =
+                societyMemberRepository
+                        .findBySocietyIdAndUserId(
+                                societyId,
+                                userId
+                        )
+                        .orElseThrow(() ->
+                                new AccessDeniedException(
+                                        "Society membership required"
+                                )
+                        );
+
+        if (member.getStatus() != SocietyMemberStatus.ACTIVE) {
+            throw new AccessDeniedException(
+                    "Active society membership required"
+            );
+        }
     }
     private void requireSocietyAdmin(
             UUID societyId,

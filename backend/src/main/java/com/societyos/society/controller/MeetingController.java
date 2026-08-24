@@ -39,14 +39,29 @@ public class MeetingController {
             @PathVariable UUID societyId,
             Authentication authentication
     ) {
-        return meetingService.getSocietyMeetings(societyId);
+
+        User user =
+                (User) authentication.getPrincipal();
+
+        return meetingService.getSocietyMeetings(
+                societyId,
+                user.getId()
+        );
     }
 
     @GetMapping("/{societyId}/meetings/upcoming")
     public List<MeetingResponse> getUpcomingMeetings(
-            @PathVariable UUID societyId
+            @PathVariable UUID societyId,
+            Authentication authentication
     ) {
-        return meetingService.getUpcomingMeetings(societyId);
+
+        User user =
+                (User) authentication.getPrincipal();
+
+        return meetingService.getUpcomingMeetings(
+                societyId,
+                user.getId()
+        );
     }
 
     @PutMapping("/{societyId}/meetings/{meetingId}/cancel")
