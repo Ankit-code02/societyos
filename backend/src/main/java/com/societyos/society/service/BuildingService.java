@@ -3,6 +3,7 @@ package com.societyos.society.service;
 import com.societyos.society.entity.Building;
 import com.societyos.society.entity.Society;
 import com.societyos.society.entity.SocietyMemberRole;
+import com.societyos.society.entity.SocietyMemberStatus;
 import com.societyos.society.entity.SocietyStatus;
 import com.societyos.society.repository.BuildingRepository;
 import com.societyos.society.repository.SocietyMemberRepository;
@@ -46,10 +47,11 @@ public class BuildingService {
         }
         boolean isSocietyAdmin =
                 societyMemberRepository
-                        .existsBySocietyIdAndUserIdAndRole(
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
                                 societyId,
                                 userId,
-                                SocietyMemberRole.SOCIETY_ADMIN
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
                         );
 
         if (!isSocietyAdmin) {
@@ -105,11 +107,29 @@ public class BuildingService {
     }
 
     @Transactional(readOnly = true)
-    public List<Building> getBuildings(UUID societyId) {
+    public List<Building> getBuildings(
+            UUID societyId,
+            UUID userId
+    ) {
 
         if (!societyRepository.existsById(societyId)) {
             throw new IllegalArgumentException(
                     "Society not found"
+            );
+        }
+
+        boolean isSocietyAdmin =
+                societyMemberRepository
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
+                                userId,
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
+                        );
+
+        if (!isSocietyAdmin) {
+            throw new IllegalStateException(
+                    "Only active society administrators can view buildings"
             );
         }
 
@@ -120,8 +140,24 @@ public class BuildingService {
     @Transactional(readOnly = true)
     public Building getBuilding(
             UUID societyId,
-            UUID buildingId
+            UUID buildingId,
+            UUID userId
     ) {
+
+        boolean isSocietyAdmin =
+                societyMemberRepository
+                        .existsBySocietyIdAndUserIdAndRoleAndStatus(
+                                societyId,
+                                userId,
+                                SocietyMemberRole.SOCIETY_ADMIN,
+                                SocietyMemberStatus.ACTIVE
+                        );
+
+        if (!isSocietyAdmin) {
+            throw new IllegalStateException(
+                    "Only active society administrators can view buildings"
+            );
+        }
 
         Building building = buildingRepository.findById(buildingId)
                 .orElseThrow(() ->

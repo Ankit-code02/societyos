@@ -46,10 +46,16 @@ public class BuildingController {
 
     @GetMapping("/societies/{societyId}/buildings")
     public ResponseEntity<List<BuildingResponse>> getBuildings(
-            @PathVariable UUID societyId
+            @PathVariable UUID societyId,
+            Authentication authentication
     ) {
+        User user = (User) authentication.getPrincipal();
+
         List<BuildingResponse> response =
-                buildingService.getBuildings(societyId)
+                buildingService.getBuildings(
+                                societyId,
+                                user.getId()
+                        )
                         .stream()
                         .map(BuildingResponse::new)
                         .toList();
@@ -60,12 +66,16 @@ public class BuildingController {
     @GetMapping("/societies/{societyId}/buildings/{buildingId}")
     public ResponseEntity<BuildingResponse> getBuilding(
             @PathVariable UUID societyId,
-            @PathVariable UUID buildingId
+            @PathVariable UUID buildingId,
+            Authentication authentication
     ) {
+        User user = (User) authentication.getPrincipal();
+
         Building building =
                 buildingService.getBuilding(
                         societyId,
-                        buildingId
+                        buildingId,
+                        user.getId()
                 );
 
         return ResponseEntity.ok(
