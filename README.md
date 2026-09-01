@@ -1,224 +1,132 @@
-# SocietyOS
+# 🏢 SocietyOS
 
-> A production-oriented full-stack society management platform for residents, administrators, and society management teams.
+> A full-stack society management platform that brings residential community operations into one centralized application.
 
-![Java](https://img.shields.io/badge/Java-24-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-brightgreen)
-![React](https://img.shields.io/badge/React-TypeScript-blue)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
-![Vite](https://img.shields.io/badge/Vite-Frontend-purple)
-![Spring Security](https://img.shields.io/badge/Security-Spring%20Security-green)
-![Deployment](https://img.shields.io/badge/Deployment-Vercel%20%2B%20Render-black)
+<p align="center">
+  <a href="https://societyos-psi.vercel.app">
+    <img src="https://img.shields.io/badge/Live%20Demo-SocietyOS-2F81F7?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"/>
+  </a>
+  <a href="https://github.com/Ankit-code02/societyos">
+    <img src="https://img.shields.io/badge/Source%20Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+  </a>
+</p>
 
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Problem Statement](#problem-statement)
-- [Goals](#goals)
-- [Core Modules](#core-modules)
-- [Key Features](#key-features)
-- [User Roles](#user-roles)
-- [Technology Stack](#technology-stack)
-- [System Architecture](#system-architecture)
-- [Backend Architecture](#backend-architecture)
-- [Frontend Architecture](#frontend-architecture)
-- [Authentication and Authorization](#authentication-and-authorization)
-- [Database](#database)
-- [API Architecture](#api-architecture)
-- [Project Structure](#project-structure)
-- [Environment Configuration](#environment-configuration)
-- [Local Development Setup](#local-development-setup)
-- [Production Deployment](#production-deployment)
-- [Health Monitoring](#health-monitoring)
-- [Security](#security)
-- [Current Project Status](#current-project-status)
-- [Future Improvements](#future-improvements)
-- [Development Approach](#development-approach)
-- [Project Links](#project-links)
-- [Author](#author)
-- [License](#license)
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-24-orange?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java"/>
+  <img src="https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" alt="Spring Boot"/>
+  <img src="https://img.shields.io/badge/React-TypeScript-3178C6?style=for-the-badge&logo=react&logoColor=white" alt="React"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-17-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+</p>
 
 ---
 
-## Overview
+## 📌 Overview
 
-SocietyOS is a full-stack society management platform designed to centralize the everyday operations of residential societies.
+**SocietyOS** is a full-stack web application designed to digitize everyday residential society operations.
 
-Residential communities often rely on WhatsApp groups, spreadsheets, manual registers, phone calls, and disconnected processes to manage residents, complaints, maintenance, announcements, meetings, and society administration.
+Instead of relying on spreadsheets, chat groups, phone calls, and disconnected processes, SocietyOS provides a centralized platform for:
 
-SocietyOS brings these workflows into one platform.
+- 👥 Resident management
+- 🏢 Society and building management
+- 🛠️ Complaints and maintenance
+- 📢 Announcements
+- 📅 Meetings and events
+- 💳 Maintenance dues and payment workflows
+- 🔔 Notifications
+- 🤖 AI-assisted help
 
-The application provides separate capabilities for residents and society administrators while enforcing authentication, authorization, society membership, and role-based access throughout the system.
-
----
-
-## Problem Statement
-
-Residential societies commonly face several operational problems:
-
-- Resident information is maintained in spreadsheets.
-- Complaints are raised through informal communication channels.
-- Maintenance dues are tracked manually.
-- Important announcements can get lost in chat groups.
-- Meeting information is distributed across different channels.
-- Resident onboarding can be manual and difficult to track.
-- Society administrators have limited centralized visibility.
-- Society information is distributed across multiple tools.
-
-SocietyOS addresses these problems by providing a centralized digital platform for society operations.
+The application provides separate resident and administrator workflows with backend-enforced authentication, authorization, and society membership validation.
 
 ---
 
-## Goals
+## 🎯 Problem
 
-1. Centralize society management workflows.
-2. Provide secure authentication and authorization.
-3. Provide structured resident and unit management.
-4. Simplify complaint and maintenance management.
-5. Improve society-wide communication.
-6. Provide structured meeting management.
-7. Support society verification and onboarding.
-8. Provide AI-assisted help for common society-related questions.
-9. Maintain a scalable backend architecture.
-10. Provide a deployable production-oriented application.
+Residential communities often manage important operations through disconnected tools:
 
----
+- Resident information stored in spreadsheets
+- Complaints raised through chat groups
+- Maintenance tracked manually
+- Announcements distributed across multiple channels
+- Meetings managed through informal communication
+- Resident onboarding handled manually
+- Limited centralized visibility for administrators
 
-# Core Modules
-
-SocietyOS V1 is organized around the following core modules:
-
-1. Authentication & User Management
-2. Society & Building Management
-3. Unit & Resident Management
-4. Admin Management & Invitations
-5. Complaints & Maintenance
-6. Announcements & Communication
-7. Meetings & Events
-8. Maintenance & Payments
-9. AI Help Chatbot
+**SocietyOS brings these workflows into one structured platform.**
 
 ---
 
-# Key Features
+# ✨ Key Features
 
-## 1. Authentication & User Management
+## 🔐 Authentication & Security
 
-- User registration
-- User login
+- User registration and login
 - OTP verification
 - Password reset
-- JWT-based authentication
-- Access tokens
-- Refresh tokens
+- JWT authentication
+- Access and refresh tokens
 - Protected API endpoints
 - Protected frontend routes
-- User profile management
 - Role-based authorization
+- Society membership validation
 
-## 2. Society & Building Management
+## 🏢 Society Management
 
 - Society registration
-- Society onboarding
-- Society verification
-- Society status management
+- Society onboarding and verification
 - Building management
-- Building creation
-- Building retrieval
-- Society membership management
-- Society-level authorization
-
-## 3. Unit & Resident Management
-
-- Unit creation
 - Unit management
-- Unit retrieval
 - Resident management
-- Resident onboarding
-- Unit assignment
-- Resident status management
-- Society membership validation
-- Building and society relationship validation
-
-## 4. Admin Management & Invitations
-
-- Administrator management
+- Society membership management
 - Resident invitations
-- Invitation workflows
-- Society membership
 - Role assignment
-- Membership status validation
-- Active membership checks
 
-## 5. Complaints & Maintenance
+## 🛠️ Complaints & Maintenance
 
-- Complaint creation
-- Complaint categories
-- Complaint priority
-- Complaint status
-- Complaint tracking
+- Create and track complaints
+- Complaint categories and priorities
+- Complaint status management
 - Complaint assignment
 - Maintenance dues
 - Due-date tracking
 - Unit-level maintenance information
-- Society-level maintenance information
 - Payment workflow
-- Maintenance status
 
-## 6. Announcements & Communication
+## 📢 Communication
 
-- Announcement creation
-- Announcement management
+- Society announcements
 - Published announcements
-- Announcement retrieval
-- Society-level communication
-- Resident announcement access
-- Notification support
+- Resident communication
+- Notifications
 
-## 7. Meetings & Events
+## 📅 Meetings & Events
 
 - Meeting creation
 - Meeting scheduling
-- Meeting retrieval
 - Upcoming meetings
 - Meeting status
 - Meeting cancellation
-- Society-level meeting access
 
-## 8. Maintenance & Payments
+## 🤖 AI Help
 
-- Maintenance due records
-- Due dates
-- Unit-level dues
-- Society-level dues
-- Payment workflow
-- Payment status
-- Demo payment support for development/testing
-- Access control for maintenance information
+SocietyOS includes an AI-assisted help experience powered through a Gemini integration.
 
-## 9. AI Help Chatbot
-
-SocietyOS includes an AI-assisted help experience.
-
-The backend includes:
+The backend provides:
 
 - AI provider abstraction
-- Gemini integration
-- AI conversation handling
-- AI message handling
-- AI-related API endpoints
+- Conversation handling
+- Message handling
+- AI-related REST endpoints
 
 ---
 
-# User Roles
+# 👥 User Roles
 
-SocietyOS uses role-based access control.
+SocietyOS currently supports role-based access control for different users.
 
-## Residents
+### 🧑 Resident
 
-Residents can access functionality appropriate to their society membership, including:
+Residents can access functionality such as:
 
 - Society information
 - Unit information
@@ -230,11 +138,9 @@ Residents can access functionality appropriate to their society membership, incl
 - Profile management
 - AI Help
 
-Residents are restricted from administrator-only operations.
+### 👨‍💼 Society Administrator
 
-## Society Administrators
-
-Society administrators can manage:
+Administrators can manage:
 
 - Society structure
 - Buildings
@@ -246,92 +152,46 @@ Society administrators can manage:
 - Announcements
 - Meetings
 
-Administrator permissions are validated on the backend.
+All important authorization checks are enforced on the backend.
 
 ---
 
-# Technology Stack
-
-## Backend
-
-- Java
-- Spring Boot
-- Spring Security
-- JWT Authentication
-- Spring Data JPA
-- Hibernate
-- PostgreSQL
-- Flyway
-- Maven
-- REST APIs
-- Lombok
-
-## Frontend
-
-- React
-- TypeScript
-- Vite
-- Axios
-- React Router
-- CSS
-
-## AI
-
-- Gemini
-- AI provider abstraction
-
-## Database
-
-- PostgreSQL
-- Flyway database migrations
-
-## Development Tools
-
-- IntelliJ IDEA
-- VS Code
-- Git
-- GitHub
-- Maven
-- npm
-
-## Deployment
-
-- Vercel
-- Render
-- PostgreSQL on Render
-- GitHub
-
----
-
-# System Architecture
+# 🏗️ System Architecture
 
 ```text
-                         ┌─────────────────────────┐
-                         │       SocietyOS         │
-                         │        Frontend         │
-                         │   React + TypeScript    │
-                         │          Vite           │
-                         └────────────┬────────────┘
+                         ┌──────────────────────────┐
+                         │       SocietyOS           │
+                         │        Frontend           │
+                         │   React + TypeScript      │
+                         │          Vite             │
+                         └────────────┬─────────────┘
                                       │
-                                      │ HTTPS / REST
+                                  HTTPS / REST
+                                      │
                                       ▼
-                         ┌─────────────────────────┐
-                         │       SocietyOS         │
-                         │        Backend          │
-                         │   Spring Boot / Java    │
-                         └────────────┬────────────┘
+                         ┌──────────────────────────┐
+                         │       SocietyOS           │
+                         │        Backend            │
+                         │    Java + Spring Boot     │
+                         └────────────┬─────────────┘
                                       │
                     ┌─────────────────┼─────────────────┐
                     │                 │                 │
                     ▼                 ▼                 ▼
-             ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-             │  PostgreSQL  │  │ JWT / Spring │  │   Gemini AI  │
-             │   Database   │  │   Security   │  │   Assistant  │
-             └──────────────┘  └──────────────┘  └──────────────┘
-Backend Architecture
+             ┌─────────────┐  ┌──────────────┐  ┌─────────────┐
+             │ PostgreSQL  │  │   Spring     │  │  Gemini AI  │
+             │   Database  │  │   Security   │  │  Assistant  │
+             └─────────────┘  │     + JWT    │  └─────────────┘
+                              └──────────────┘
+```
 
-The backend follows a layered architecture.
+---
 
+# ⚙️ Backend Architecture
+
+The backend follows a layered architecture that separates HTTP handling, business logic, and persistence.
+
+```text
 HTTP Request
      │
      ▼
@@ -353,131 +213,126 @@ HTTP Request
 ┌───────────────┐
 │   PostgreSQL  │
 └───────────────┘
-Controllers
+```
 
-Controllers handle HTTP requests and map them to application operations.
+### Controller
 
-Services
+Handles HTTP requests and API responses.
 
-Services contain the core business logic, validation, authorization checks, and transaction boundaries.
+### Service
 
-Repositories
+Contains business logic, validation, authorization checks, and transaction boundaries.
 
-Repositories provide database access through Spring Data JPA.
+### Repository
 
-DTOs
+Provides database access through Spring Data JPA.
 
-DTOs define structured request and response models exchanged through the API.
+### DTOs
 
-Entities
+Define structured request and response models.
 
-Entities represent persistent domain models and their relationships.
+### Entities
 
-Frontend Architecture
-                React Application
-                       │
-        ┌──────────────┼──────────────┐
-        │              │              │
-        ▼              ▼              ▼
-     Pages         Components       Layouts
-        │              │              │
-        └──────────────┼──────────────┘
-                       │
-                       ▼
+Represent persistent domain models and their relationships.
+
+---
+
+# 🎨 Frontend Architecture
+
+```text
+                 React Application
+                        │
+          ┌─────────────┼─────────────┐
+          │             │             │
+          ▼             ▼             ▼
+       Pages       Components       Layouts
+          │             │             │
+          └─────────────┼─────────────┘
+                        │
+                        ▼
                     Services
-                       │
-                       ▼
-                   REST API
-                       │
-                       ▼
-                Spring Boot API
+                        │
+                        ▼
+                    REST API
+                        │
+                        ▼
+                 Spring Boot API
+```
 
-The frontend contains dedicated areas for:
+The frontend is organized around:
 
-Application configuration
-Components
-Hooks
-Layouts
-Pages
-Services
-Types
-Authentication
-Admin workflows
-Resident workflows
-Authentication and Authorization
+- Pages
+- Components
+- Layouts
+- Hooks
+- Services
+- Types
+- Authentication
+- Resident workflows
+- Administrator workflows
 
-SocietyOS uses Spring Security and JWT-based authentication.
+---
 
-Authentication Flow
+# 🔒 Authentication & Authorization
+
+SocietyOS uses **Spring Security + JWT** for authentication and backend authorization.
+
+### Authentication Flow
+
+```text
 User
-  │
-  ▼
+ │
+ ▼
 Register / Login
-  │
-  ▼
+ │
+ ▼
 Authentication API
-  │
-  ▼
+ │
+ ▼
 Access Token + Refresh Token
-  │
-  ▼
+ │
+ ▼
 Frontend Session
-  │
-  ▼
+ │
+ ▼
 Authenticated API Request
-  │
-  ▼
+ │
+ ▼
 Spring Security
-  │
-  ▼
+ │
+ ▼
 JWT Validation
-  │
-  ▼
+ │
+ ▼
 Authorized Resource
-Authorization
+```
 
-Protected operations validate:
+### Backend authorization validates
 
-Authenticated user
-Society membership
-Membership status
-User role
-Society ownership
-Building-society relationship
-Unit-society relationship
+- Authenticated user
+- User role
+- Society membership
+- Membership status
+- Society ownership
+- Building/society relationship
+- Unit/society relationship
 
-Backend authorization prevents users from accessing resources belonging to another society.
+This prevents users from accessing resources belonging to another society.
 
-Database
+---
 
-SocietyOS uses PostgreSQL as its primary relational database.
+# 🗄️ Database
 
-Database schema evolution is managed using Flyway.
+SocietyOS uses **PostgreSQL** as its primary relational database.
 
-Migration Areas
+Database schema changes are managed using **Flyway migrations**.
+
+### Major domain areas
+
+```text
 Identity
-Society
-Society members
-Buildings
-Units
-Residents
-Complaints
-Announcements
-Meetings
-Maintenance dues
-Notifications
-AI conversations
-Invitations
-API Architecture
-
-The frontend communicates with the backend using REST APIs.
-
-Production API Base URL
-https://societyos-63sh.onrender.com/api/v1
-Major API Areas
-Authentication
-Users
 Societies
+Society Members
 Buildings
 Units
 Residents
@@ -487,25 +342,63 @@ Maintenance
 Announcements
 Meetings
 Notifications
-AI
-Environment Configuration
-Frontend Environment
+AI Conversations
+```
 
-Create:
+---
 
-frontend/.env
-Local Development
-VITE_API_URL=http://localhost:8080/api/v1
-Production
-VITE_API_URL=https://societyos-63sh.onrender.com/api/v1
+# 🧰 Technology Stack
 
-The frontend API client reads the value through:
+## Backend
 
-import.meta.env.VITE_API_URL
+- Java
+- Spring Boot
+- Spring Security
+- JWT
+- Spring Data JPA
+- Hibernate
+- PostgreSQL
+- Flyway
+- Maven
+- Lombok
+- REST APIs
 
-Do not commit private credentials or secrets to Git.
+## Frontend
 
-Project Structure
+- React
+- TypeScript
+- Vite
+- Axios
+- React Router
+- CSS
+
+## AI
+
+- Gemini
+- AI provider abstraction
+
+## Development
+
+- Git
+- GitHub
+- IntelliJ IDEA
+- VS Code
+- Maven
+- npm
+- Postman
+
+## Deployment
+
+- Vercel
+- Render
+- PostgreSQL
+- GitHub
+
+---
+
+# 📂 Project Structure
+
+```text
 societyos/
 │
 ├── backend/
@@ -525,8 +418,7 @@ societyos/
 │   │   │           └── migration/
 │   │   └── test/
 │   ├── pom.xml
-│   ├── Dockerfile
-│   └── mvnw.cmd
+│   └── Dockerfile
 │
 ├── frontend/
 │   ├── src/
@@ -544,207 +436,248 @@ societyos/
 │
 ├── .gitignore
 └── README.md
-Local Development Setup
-Prerequisites
-Java JDK
-Maven
-Node.js
-npm
-PostgreSQL
-Git
-Clone Repository
+```
+
+---
+
+# 🚀 Running Locally
+
+## Prerequisites
+
+Make sure you have:
+
+- Java JDK
+- Maven
+- Node.js
+- npm
+- PostgreSQL
+- Git
+
+## 1. Clone the repository
+
+```bash
 git clone https://github.com/Ankit-code02/societyos.git
 cd societyos
-Backend
+```
+
+## 2. Start the backend
+
+```bash
 cd backend
+
 .\mvnw.cmd clean package
+
 .\mvnw.cmd spring-boot:run
+```
 
 Backend:
 
+```text
 http://localhost:8080
-Frontend
+```
+
+## 3. Start the frontend
 
 Open another terminal:
 
+```bash
 cd frontend
+
 npm install
+
 npm run dev
-Production Deployment
+```
 
-SocietyOS uses a separated frontend, backend, and database architecture.
+---
 
-                       Internet
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │     Vercel      │
-                  │ React + Vite    │
-                  └────────┬────────┘
-                           │
-                           │ HTTPS / REST API
-                           ▼
-                  ┌─────────────────┐
-                  │     Render      │
-                  │ Spring Boot API │
-                  └────────┬────────┘
-                           │
-                           ▼
-                  ┌─────────────────┐
-                  │   PostgreSQL    │
-                  │     Render      │
-                  └─────────────────┘
-Frontend
+# 🔧 Environment Configuration
 
-The frontend is deployed on Vercel.
+Create:
 
-Production API configuration:
+```text
+frontend/.env
+```
 
-VITE_API_URL=https://societyos-63sh.onrender.com/api/v1
-Backend
+For local development:
 
-The Spring Boot backend is deployed on Render.
+```env
+VITE_API_URL=http://localhost:8080/api/v1
+```
 
-https://societyos-63sh.onrender.com
-Database
+The frontend reads the API URL using:
 
-PostgreSQL is hosted through Render and connected to the backend.
+```typescript
+import.meta.env.VITE_API_URL
+```
 
-Flyway manages database schema migrations.
+> ⚠️ Never commit passwords, API keys, database credentials, JWT secrets, or other private credentials to Git.
 
-Health Monitoring
+---
 
-Production health endpoint:
+# ☁️ Deployment
 
+SocietyOS uses a separated frontend, backend, and database deployment model.
+
+```text
+                    Internet
+                       │
+                       ▼
+               ┌───────────────┐
+               │    Vercel     │
+               │ React + Vite  │
+               └───────┬───────┘
+                       │
+                    HTTPS
+                       │
+                       ▼
+               ┌───────────────┐
+               │    Render     │
+               │ Spring Boot   │
+               │     API       │
+               └───────┬───────┘
+                       │
+                       ▼
+               ┌───────────────┐
+               │  PostgreSQL   │
+               │    Render     │
+               └───────────────┘
+```
+
+### Frontend
+
+Deployed on Vercel.
+
+### Backend
+
+Deployed on Render.
+
+### Database
+
+PostgreSQL hosted through Render.
+
+### Database migrations
+
+Managed with Flyway.
+
+---
+
+# ❤️ Health Monitoring
+
+The Spring Boot backend exposes an Actuator health endpoint.
+
+```text
 https://societyos-63sh.onrender.com/actuator/health
+```
 
 Expected healthy response:
 
+```json
 {
   "status": "UP"
 }
-Security
+```
 
-Implemented security mechanisms include:
+---
 
-Spring Security
-JWT authentication
-Access tokens
-Refresh tokens
-OTP verification
-Password reset
-Protected API endpoints
-Role-based authorization
-Society membership authorization
-Active membership validation
-Protected frontend routes
-Environment-based configuration
-Secrets excluded from Git
+# 📊 Current Project Status
 
-Backend authorization checks prevent cross-society access.
+SocietyOS has reached a **deployed V1 state**.
 
-Production Readiness
+### ✅ Implemented
 
-The project includes:
+- Authentication and user management
+- Society registration and verification
+- Building management
+- Unit management
+- Resident management
+- Resident invitations
+- Complaints
+- Maintenance dues
+- Payment workflow
+- Announcements
+- Notifications
+- Meetings
+- AI Help
+- Role-based access control
+- PostgreSQL database
+- Flyway migrations
+- Frontend deployment
+- Backend deployment
+- Health monitoring
 
-Layered backend architecture
-REST APIs
-Authentication
-Authorization
-Database migrations
-Environment configuration
-Frontend/backend separation
-Cloud deployment
-Health monitoring
-Git-based version control
-Structured domain modules
-Current Project Status
+---
 
-SocietyOS has reached a deployed V1 state.
+# 🔮 Future Improvements
 
-Completed
-Authentication and user management
-Society management
-Society verification
-Building management
-Unit management
-Resident management
-Resident invitations
-Complaints
-Maintenance dues
-Maintenance payment workflow
-Announcements
-Notifications
-Meetings
-AI Help
-Role-based access control
-PostgreSQL database
-Flyway migrations
-Production backend deployment
-Production frontend deployment
-Backend health monitoring
-Deployment Status
-Component	Platform	Status
-Frontend	Vercel	Deployed
-Backend	Render	Deployed
-Database	PostgreSQL / Render	Available
-Source Code	GitHub	Maintained
-API Health	Spring Boot Actuator	UP
-Future Improvements
-Production payment gateway integration
-Push notifications
-Advanced society analytics
-Financial reporting
-Visitor management
-Vendor management
-Document management
-Advanced AI automation
-Mobile applications
-Subscription and billing plans
-Audit logging
-Advanced administrator dashboards
-Custom domains
-Automated CI/CD pipelines
-Automated testing pipelines
-Performance monitoring
-Centralized application logging
-Error tracking and observability
-Development Approach
+Planned improvements include:
 
-SocietyOS is being developed as a production-oriented full-stack application rather than a basic CRUD project.
+- Production payment gateway integration
+- Push notifications
+- Advanced society analytics
+- Financial reporting
+- Visitor management
+- Vendor management
+- Document management
+- Advanced AI automation
+- Mobile applications
+- Subscription and billing
+- Audit logging
+- Advanced administrator dashboards
+- Automated CI/CD pipelines
+- Automated testing pipelines
+- Centralized logging
+- Error tracking and observability
 
-The development approach emphasizes:
+---
 
-Clear separation of concerns
-Secure authentication
-Backend-enforced authorization
-Maintainable service architecture
-Structured database migrations
-Reusable frontend components
-REST API design
-Environment-based configuration
-Cloud deployment
-Practical real-world workflows
-Incremental development
-Version-controlled changes
-Project Links
-Live Application
+# 💡 What This Project Demonstrates
 
-https://societyos-psi.vercel.app
-Backend
-https://societyos-63sh.onrender.com
-Backend Health
-https://societyos-63sh.onrender.com/actuator/health
-API Base URL
-https://societyos-63sh.onrender.com/api/v1
-GitHub Repository
-https://github.com/Ankit-code02/societyos
-Author
-Ankit Maurya
+SocietyOS was built as more than a basic CRUD application.
 
-GitHub:
+The project demonstrates practical experience with:
 
-https://github.com/Ankit-code02
-License
+- REST API development
+- Layered backend architecture
+- Spring Security
+- JWT authentication
+- Role-based authorization
+- Relational database design
+- Database migrations
+- React frontend development
+- TypeScript
+- Backend/frontend integration
+- Environment-based configuration
+- Cloud deployment
+- Health monitoring
+- Domain-driven feature organization
+- AI API integration
+
+---
+
+# 🔗 Project Links
+
+| Resource | Link |
+|---|---|
+| 🌐 Live Application | https://societyos-psi.vercel.app |
+| ⚙️ Backend | https://societyos-63sh.onrender.com |
+| ❤️ Backend Health | https://societyos-63sh.onrender.com/actuator/health |
+| 📡 API Base URL | https://societyos-63sh.onrender.com/api/v1 |
+| 💻 GitHub Repository | https://github.com/Ankit-code02/societyos |
+
+---
+
+# 👨‍💻 Author
+
+**Ankit Maurya**
+
+Java Developer focused on Java, Spring Boot, REST APIs, React, PostgreSQL, and Docker.
+
+- 💻 GitHub: https://github.com/Ankit-code02
+- 💼 LinkedIn: https://www.linkedin.com/in/ankit0209/
+- 🌐 Portfolio: https://ankit-portfolio-two-brown.vercel.app
+
+---
+
+## 📄 License
 
 This project is currently intended as a portfolio and development project.
